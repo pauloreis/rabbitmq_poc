@@ -1,0 +1,48 @@
+Docker do environment da raiz do project.
+
+1- Adicionar dependencia ao POM:
+    <dependency>
+        <groupId>org.springframework.amqp</groupId>
+        <artifactId>spring-rabbit</artifactId>
+    </dependency>
+
+2- COnfigurar application properties:
+    spring:
+      rabbitmq:
+        host: 'localhost'
+        port: 5672
+        username: admin
+        password: 123456
+
+    server:
+      port: 8080
+
+3- Acessar:
+    http://localhost:15672/
+    admin
+    123456
+
+4 - Criar Class de Connection:
+    connections.RabbitMQConnection
+
+    # queue    -> fila()
+    # exchange -> trocaDireta()
+    # NOME_EXCHANGE
+    # Binding - relacionamento entre a fila e a exchange -> relacionamento()
+    # adiciona()
+        -> criamos as filas
+        -> pegarmos a exchange (direct : recebe a mensagem e direciona para a fila)
+        -> ralaciona: fila->exchange
+    # criarmos construtor instanciando a interface AmqpAdmin
+    # usamos essa interface para criar a fila em si no RabbitMQ
+        -> amqpAdmin.declare queue
+        -> amqpAdmin.declare exchange
+        -> amqpAdmin.declare binding
+    # precisamos anotar o método adiciona() como @Postconstructor para a fila ser criada no momento do build da
+        aplicação.
+
+
+
+
+
+
